@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video transcripts</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <header><span class="mark" aria-hidden="true">Vt</span><div><h1>Video transcripts</h1><p>Italian & English · On this computer</p></div></header>
+  <main>
+    <section id="setup" class="setup" aria-labelledby="setup-title" hidden>
+      <h2 id="setup-title">Set up your transcription model</h2>
+      <p>This extension does not include an AI model. It uses a Whisper model that you install on this computer, so audio never leaves it.</p>
+      <ol>
+        <li>Install <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">Python 3.11 or newer</a>.</li>
+        <li>In the <code>transcribing-chrome-extension</code> folder, run <code>.\install.ps1</code> in PowerShell and choose a model.</li>
+        <li>Click <strong>Check again</strong>.</li>
+      </ol>
+      <p id="setup-detail" class="setup-detail"></p>
+      <button id="recheck">Check again</button>
+    </section>
+    <section class="capture" aria-labelledby="capture-title">
+      <h2 id="capture-title">Transcribe this tab</h2>
+      <label for="language">Transcription mode</label>
+      <select id="language"><option value="it">Italian → English</option><option value="en">English → Italian</option><option value="en-only">English → English</option></select>
+      <div class="controls"><button id="start" class="primary">Start transcription</button><button id="stop" hidden>Stop & save</button></div>
+      <p id="status" role="status" aria-live="polite">Open audio or video, then start. Text is saved automatically.</p>
+      <p id="error" role="alert" hidden></p>
+    </section>
+    <section aria-labelledby="library-title">
+      <div class="section-heading"><h2 id="library-title">Saved videos</h2><span id="count">0</span></div>
+      <label class="visually-hidden" for="search">Search saved videos</label>
+      <input id="search" type="search" placeholder="Search your library" autocomplete="off">
+      <div id="library"></div>
+      <p id="empty" class="empty">Your transcripts will live here.<br>Open a saved video to read its text.</p>
+    </section>
+    <article id="detail" hidden>
+      <h2 id="video-title"></h2><p id="video-meta"></p>
+      <div class="detail-actions"><button id="download">Download text</button><button id="delete" class="quiet">Delete</button></div>
+      <section><h3 id="original-label">Original</h3><div id="original" class="transcript" lang="it"></div></section>
+      <section id="translation-section"><h3 id="translation-label">Translation</h3><div id="translation" class="transcript" lang="en"></div></section>
+    </article>
+  </main>
+  <footer>Audio stays local. Saved videos stay in this Chrome profile.</footer>
+  <script src="panel.js"></script>
+</body>
+</html>

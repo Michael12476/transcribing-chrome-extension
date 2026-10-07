@@ -1,0 +1,8 @@
+# Created by install.ps1 on each user's computer
+.venv/
+models/
+config.json
+host.cmd
+native-host.json
+__pycache__/
+*.pyc

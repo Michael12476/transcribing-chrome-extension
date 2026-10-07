@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Video transcripts",
+  "version": "1.0.2",
+  "description": "Transcribe English audio or translate between Italian and English locally. Keep your text in a saved video library.",
+  "minimum_chrome_version": "116",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxk5kTJVuiKIDvOYZhiIXkqNo/v0vqrG80gp813JGVYmFpj3sC/ogxdPwCDRuQgD8cv4xTRySAYpDkyY40jCN0zjuH3b0Ebtv0RsfWenrHNCOtVZjGfc2Pz/AG0l/D1AJfCA89z3h8s5dV3oVfLcava2eDfzeewi/1hQ3s+b9bFFy1ZmQ8oMq+hC/x+9YymwUE+IbMQojP3HGywNlZ5FniMNKiKiC526Qmdrmmnu4MBai29SNjosVyYfhfotVUl7A8aQKmTGyB84TiuFBqXmSrRoeE0v/Up1/MX2c6GOTMzi9nYEkmFaaceZDMP9nguy7MLcP3ZpnD5a9n8R8p3sx9QIDAQAB",
+  "permissions": ["activeTab", "tabCapture", "offscreen", "sidePanel", "nativeMessaging", "storage", "unlimitedStorage"],
+  "background": {"service_worker": "background.js"},
+  "action": {"default_title": "Open video transcripts"},
+  "side_panel": {"default_path": "panel.html"}
+}
