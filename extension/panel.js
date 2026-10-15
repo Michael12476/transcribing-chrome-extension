@@ -15,9 +15,10 @@ function showError(message) { $("error").textContent = message; $("error").hidde
 
 // Scroll only the library box, and only when the selection changes, so live updates don't fight the user's scrolling.
 function revealSelectedVideo() {
+  if (selected === revealedSelection) return;
   const library = $("library");
   const row = library.querySelector('[aria-pressed="true"]');
-  if (!row || selected === revealedSelection) return;
+  if (!row) return;
   revealedSelection = selected;
   if (row.offsetTop < library.scrollTop) library.scrollTop = row.offsetTop;
   else if (row.offsetTop + row.offsetHeight > library.scrollTop + library.clientHeight) library.scrollTop = row.offsetTop + row.offsetHeight - library.clientHeight;

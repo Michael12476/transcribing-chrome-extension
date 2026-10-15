@@ -22,7 +22,8 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px s
 #error { color: #a12b23; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
 .section-heading { display: flex; justify-content: space-between; align-items: baseline; }
 #count { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
-/* About 4.5 rows: keeps the selected video's actions near the top, and the cut-off row shows the list scrolls. */
+/* About 4.5 rows: keeps the selected video's actions near the top, and the cut-off row shows the list scrolls.
+   position: relative makes each row's offsetTop relative to this box, which revealSelectedVideo() in panel.js relies on. */
 #library { position: relative; margin-top: 12px; max-height: 280px; overflow-y: auto; overscroll-behavior: contain; }
 .video { display: block; text-align: left; width: 100%; border: 0; border-bottom: 1px solid var(--line); background: transparent; border-radius: 0; padding: 13px 10px; }
 .video[aria-pressed="true"] { background: var(--tint); border-radius: 7px; border-bottom-color: transparent; }
