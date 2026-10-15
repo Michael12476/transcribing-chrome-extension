@@ -6,11 +6,23 @@ let session = null;
 let requesting = false;
 let commandError = "";
 let setup = null;
+let revealedSelection = null;
 
 function languageName(code) { return code === "it" ? "Italian" : "English"; }
 function translatedLanguage(code) { return code === "it" ? "en" : "it"; }
 function currentRecord() { return records.find(record => record.id === selected); }
 function showError(message) { $("error").textContent = message; $("error").hidden = !message; }
+
+// Scroll only the library box, and only when the selection changes, so live updates don't fight the user's scrolling.
+function revealSelectedVideo() {
+  if (selected === revealedSelection) return;
+  const library = $("library");
+  const row = library.querySelector('[aria-pressed="true"]');
+  if (!row) return;
+  revealedSelection = selected;
+  if (row.offsetTop < library.scrollTop) library.scrollTop = row.offsetTop;
+  else if (row.offsetTop + row.offsetHeight > library.scrollTop + library.clientHeight) library.scrollTop = row.offsetTop + row.offsetHeight - library.clientHeight;
+}
 
 function render() {
   const active = session && activePhases.includes(session.phase);
@@ -36,6 +48,7 @@ function render() {
   const query = $("search").value.toLocaleLowerCase();
   const filtered = records.filter(record => record.title.toLocaleLowerCase().includes(query));
   const focusedVideo = document.activeElement?.dataset.recordId;
+  const libraryScroll = $("library").scrollTop;
   $("library").replaceChildren();
   for (const record of filtered) {
     const button = document.createElement("button");
@@ -52,6 +65,8 @@ function render() {
     $("library").append(button);
     if (record.id === focusedVideo) button.focus({ preventScroll: true });
   }
+  $("library").scrollTop = libraryScroll;
+  revealSelectedVideo();
   $("empty").hidden = filtered.length > 0;
   $("empty").textContent = records.length ? "No videos match your search." : "Your transcripts will live here. Open a saved video to read its text.";
   const record = currentRecord();
