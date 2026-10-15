@@ -1,4 +1,4 @@
-"""A browser fixture for UI checks, not a transcription server. Run, then visit localhost:8875/panel.html (add ?setup to see the setup prompt)."""
+"""A browser fixture for UI checks, not a transcription server. Run, then visit localhost:8875/panel.html (add ?setup to see the setup prompt, ?many for a 70-video library)."""
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -11,6 +11,10 @@ let data = JSON.parse(localStorage.getItem(fixtureKey) || 'null') || {
   'record:en-demo': {id:'en-demo', title:'A walk through London', url:'https://example.com/en', language:'en', createdAt:'2026-10-01T12:00:00Z', chunks:[{original:'Good morning, how are you?', translation:'Buongiorno, come va?', offset:0, duration:8}]},
   session:{id:'it-demo',phase:'saved',pending:0,error:''}
 };
+if (location.search.includes('many')) for (let i = 1; i <= 70; i++) {
+  const createdAt = new Date(Date.UTC(2026, 8, 30) - i * 3600000).toISOString();
+  data['record:many-'+i] = {id:'many-'+i, title:'Saved lesson '+i, url:'https://example.com/'+i, language:i%2?'it':'en', createdAt, chunks:[{original:'Buongiorno '+i, translation:'Good morning '+i, offset:0, duration:8}]};
+}
 const listeners = [];
 function changed() { localStorage.setItem(fixtureKey,JSON.stringify(data)); listeners.forEach(fn=>fn({},'local')); }
 window.chrome = {
